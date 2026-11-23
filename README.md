@@ -155,4 +155,3 @@ G/
 - [dsh](https://www.npmjs.com/package/@deepseek-ai/dsh) — agent 运行时
 - `@tencent-connect/dsh-qqbot` — QQ 机器人适配
 - `@deepseek-ai/dsh-time-context` — 时间上下文注入
-*（内容由AI生成，仅供参考）*
