@@ -14,7 +14,7 @@ AIGC:
 > 基于 [dsh](https://www.npmjs.com/package/@deepseek-ai/dsh)（DeepSeek Harness）+ 腾讯 QQ 机器人官方开放平台 的个人 QQ 陪伴机器人脚手架。
 > 开箱即用的服务守护与**双模型自动容灾**；人设完全外置，**本仓库不含任何现成人设**。
 
-- 维护者：`<YOUR_NAME>`（GitHub: `@<YOUR_GITHUB>`）<!-- TODO: 换成你的名字与 GitHub ID -->
+- 维护者：`FinalStar-ZX`（GitHub: `@FinalStar-ZX`）
 - 适用场景：**个人日常陪伴、AI 聊天、学习与研究**
 - 许可：**非商业**，详见 [LICENSE.md](LICENSE.md) 与 [ACCEPTABLE_USE.md](ACCEPTABLE_USE.md)
 
