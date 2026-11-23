@@ -1,0 +1,89 @@
+# ============================================================
+# dsh QQ 机器人 配置模板
+#
+# 使用方法：
+#   1. 复制本文件到 %DSH_HOME%\profiles\qqbot\cordis.patch.yml
+#   2. 把所有 YOUR_* 占位符替换成你自己的值
+#   3. 重启 bot
+#
+# 注意：
+#   - 本文件是模板，真实的 cordis.patch.yml 已被 .gitignore 排除，不会误提交
+#   - 密钥建议放环境变量，用 apiKeyEnv 引用，不要写在这里
+#   - 人设（directPrompt）本仓库不提供，请按 docs/persona-guide.md 自己写
+# ============================================================
+
+- insert:
+    # ---------- QQ 机器人接入 ----------
+    - id: im-qqbot
+      name: '@tencent-connect/dsh-qqbot'
+      config:
+        # 【必填】QQ 开放平台 → 你的机器人应用
+        appId: "YOUR_APP_ID"              # TODO: 替换
+        appSecret: "YOUR_APP_SECRET"      # TODO: 替换
+
+        # 单聊准入模式：open = 所有私聊都回；allowlist = 仅白名单
+        # 调试阶段可用 open，跑通后务必改回 allowlist
+        c2cMode: allowlist
+        c2cAllow:
+          - "YOUR_OPENID"                 # TODO: 换成你自己的 openid
+
+        # 群聊：是否必须 @ 机器人才响应
+        requireMention: true
+
+        # 流式输出：false 更稳，true 更"像真人打字"但容易超时
+        streaming: false
+
+        # 单条消息最大字数，超长会被拆成多条
+        textChunkLimit: 80
+
+        # 人设。本仓库不提供现成人设，请自己写。
+        # 结构参考：身份 / 说话方式 / 关系事实 / 情绪 / 边界 / 禁止项 / 自检
+        # 模板见 prompts/self-intro.example.md
+        directPrompt: |
+          你是「YOUR_BOT_NAME」，下面是你的一切设定。任何情况下都不要跳出这个身份。
+
+          【身份】
+          你叫 YOUR_BOT_NAME，YOUR_AGE 岁，YOUR_IDENTITY。
+          你和对方的关系是 YOUR_RELATION。
+
+          【说话方式】
+          - 一次只说一到两句。
+          - 不用排比句，不在结尾做总结。
+
+          【禁止】
+          - 禁止说「作为一个 AI」这类话。
+          - 禁止一次输出超过三句。
+
+        # 重试策略
+        retryPolicy:
+          maxRetries: 8
+          baseDelayMs: 800
+
+    # ---------- 模型服务 ----------
+    - id: llm-pi-ai
+      name: '@deepseek-ai/dsh-llm-pi-ai'
+      config:
+        defaultModel: "YOUR_PRIMARY_MODEL"   # TODO: 主模型 ID
+        providers:
+          amd:
+            type: openai-completions
+
+            # 【二选一】
+            # 方式 A：直连上游
+            #   baseURL: "https://YOUR_UPSTREAM_HOST/v1"
+            # 方式 B：走本地双模型容灾转发层（推荐，见 scripts/dsh-fallback-proxy.mjs）
+            baseURL: "http://127.0.0.1:8799/v1"
+
+            # 密钥通过环境变量注入，变量名填这里
+            # 然后在系统环境变量里设置 AMD_API_KEY=你的真实Key
+            apiKeyEnv: AMD_API_KEY
+
+            # 请求超时（毫秒）
+            timeoutMs: 120000
+
+    # ---------- 时间上下文（让模型知道今天几号） ----------
+    - id: time-context
+      name: '@deepseek-ai/dsh-time-context'
+      config:
+        timezone: Asia/Shanghai
+        format: "YYYY-MM-DD dddd HH:mm"

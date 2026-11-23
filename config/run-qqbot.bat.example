@@ -1,0 +1,27 @@
+@echo off
+REM ============================================================
+REM  dsh QQ 机器人 启动脚本模板
+REM  使用方法：复制为 run-qqbot.bat，改下面的路径与 Key，然后双击运行
+REM ============================================================
+setlocal
+
+REM ---------- 路径配置（改成你自己的实际路径）----------
+set "DSH_ENV=D:\dsh-env"
+set "DSH_HOME=%DSH_ENV%\dsh-home"
+set "LOG_DIR=%DSH_ENV%\logs"
+
+REM ---------- 模型凭证 ----------
+REM 注意：这里是占位符，请填你自己的 Key；不要把填好的文件提交到 Git
+set "AMD_API_KEY=YOUR_MODEL_API_KEY"
+
+REM ---------- QQ 机器人凭证（如果配置里已写则无需在此设置）----------
+REM set "QQ_APP_ID=YOUR_APP_ID"
+REM set "QQ_APP_SECRET=YOUR_APP_SECRET"
+
+REM ---------- 启动 ----------
+if not exist "%LOG_DIR%" mkdir "%LOG_DIR%"
+
+echo [%date% %time%] starting dsh qqbot >> "%LOG_DIR%\qqbot.log"
+dsh --profile qqbot web >> "%LOG_DIR%\qqbot.log" 2>&1
+
+endlocal
