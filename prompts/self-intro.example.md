@@ -69,4 +69,3 @@ AIGC:
 | `【情绪】` | 三档要能被一句话区分开 |
 
 写完后按 [../docs/persona-guide.md](../docs/persona-guide.md) 的「常见崩坏与修法」自检一遍。
-*（内容由AI生成，仅供参考）*
