@@ -1,0 +1,35 @@
+# ---- 凭证与本地配置（绝对不要提交）----
+.env
+*.key
+*.pem
+cordis.patch.yml
+!config/cordis.patch.example.yml
+cordis.patch.yml.bak*
+cordis.patch.new.yml
+
+# ---- dsh 运行时数据 ----
+dsh-home/
+profiles/*/node_modules/
+profiles/*/sessions/
+profiles/*/storages/
+model-prefs.json
+
+# ---- 日志 ----
+*.log
+logs/
+
+# ---- 依赖 ----
+node_modules/
+pnpm-store/
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- 本地诊断产物 ----
+diag*.txt
+dump*.txt
+cfg-dump*.txt
